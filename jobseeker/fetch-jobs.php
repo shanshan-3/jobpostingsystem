@@ -34,7 +34,7 @@ foreach ($jobs as $job):
 
     $alreadyApplied = false;
     try {
-        $stmt = $pdo->prepare("SELECT 1 FROM applications WHERE job_id = ? AND user_id = ?");
+        $stmt = $pdo->prepare("SELECT 1 FROM applications WHERE job_id = ? AND seeker_id = ?");
         $stmt->execute([$current_job_id, $seeker_id]);
         $alreadyApplied = $stmt->fetch() ? true : false;
     } catch (PDOException $e) {
