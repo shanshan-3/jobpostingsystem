@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const jobId = btn.dataset.jobId;
 
             if (hasApplied) {
-                actionContainer.innerHTML = `<button class="btn btn-secondary" disabled>Already Applied</button>`;
+                actionContainer.innerHTML = `<button class="btn btn-success" disabled>Already Applied</button>`;
             } else {
                 actionContainer.innerHTML = `
                     <form action="apply-job.php" method="POST">
