@@ -96,7 +96,8 @@ function update_job(PDO $pdo, int $job_id, array $data): bool
     return $stmt->execute($data);
 }
 
-function compute_match($seeker, $job){
+function compute_match($seeker, $job)
+{
     $total_score = 0;
 
     $seeker_skills = explode(',', strtolower($seeker['skills'] ?? ''));
@@ -105,13 +106,13 @@ function compute_match($seeker, $job){
     $skills_match = count(array_intersect($seeker_skills, $job_skills));
     $total_skills = count($job_skills);
 
-    if($total_skills > 0){
-        $total_score += ($skills_match / $total_skills) * 40; 
-    } else{
+    if ($total_skills > 0) {
+        $total_score += ($skills_match / $total_skills) * 40;
+    } else {
         $total_score += 40;
     }
 
-    if($seeker['work_preference'] === $job['arrangement']){
+    if ($seeker['work_preference'] === $job['arrangement']) {
         $total_score += 30;
     }
 
@@ -121,13 +122,13 @@ function compute_match($seeker, $job){
     $needs_match = count(array_intersect($seeker_needs, $job_access));
     $total_needs = count($seeker_needs);
 
-    if($total_needs > 0){
+    if ($total_needs > 0) {
         $total_score += ($needs_match / $total_needs) * 20;
-    } else{
+    } else {
         $total_score += 20;
     }
 
-    if($seeker['work_preference'] === $job['work_type']){
+    if ($seeker['work_preference'] === $job['work_type']) {
         $total_score += 10;
     }
 

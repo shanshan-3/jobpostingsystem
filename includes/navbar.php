@@ -27,7 +27,7 @@ if ($role == 'seeker') {
 
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark nav-underline">
   <div class="container">
 
     <a class="navbar-brand fw-bold" href="<?= $brandLink ?>">
@@ -51,7 +51,7 @@ if ($role == 'seeker') {
 
         <ul class="navbar-nav ms-auto align-items-center gap-2">
           <li class="nav-item">
-            <a class="btn btn-outline-light btn-sm" href="auth/login.php">Login</a>
+            <a class="btn btn-light btn-sm" href="auth/login.php">Login</a>
           </li>
           <li class="nav-item">
             <a class="btn btn-warning btn-sm bi bi-person text-dark fw-semibold" href="auth/register.php"> Sign up</a>
@@ -65,7 +65,7 @@ if ($role == 'seeker') {
             <a class="nav-link <?= $current === 'dashboard.php' ? 'active' : '' ?>" href="dashboard.php">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?= $current === 'post-job.php' ? 'active' : '' ?>" href="post-job.php">Browse Jobs</a>
+            <a class="nav-link <?= $current === 'jobs.php' ? 'active' : '' ?>" href="jobs.php">Browse Jobs</a>
           </li>
           <li class="nav-item">
             <a class="nav-link <?= $current === 'applications.php' ? 'active' : '' ?>" href="applications.php">My Applications</a>

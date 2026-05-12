@@ -89,7 +89,7 @@ $closed_jobs = count(array_filter($jobs, fn($j) => $j['status'] === 'closed'));
                     </div>
                     <div>
                         <div class="stat-value text-primary fw-bold"><?= count($jobs) ?></div>
-                        <div class="text-muted small fw-medium">Active Job Posts</div>
+                        <div class="small fw-medium">Active Job Posts</div>
                     </div>
                 </div>
             </div>
@@ -103,7 +103,7 @@ $closed_jobs = count(array_filter($jobs, fn($j) => $j['status'] === 'closed'));
                     </div>
                     <div>
                         <div class="stat-value text-warning fw-bold"><?= $application_count ?></div>
-                        <div class="text-muted small fw-medium">Total Applications</div>
+                        <div class="small fw-medium">Total Applications</div>
                     </div>
                 </div>
             </div>
@@ -112,12 +112,12 @@ $closed_jobs = count(array_filter($jobs, fn($j) => $j['status'] === 'closed'));
         <div class="col-12 col-md-4">
             <div class="card stat-card h-100 shadow-sm">
                 <div class="card-body d-flex align-items-center gap-3">
-                    <div class="stat-icon bg-secondary bg-opacity-10">
-                        <i class="bi bi-archive-fill text-secondary"></i>
+                    <div class="stat-icon bg-dark bg-opacity-10">
+                        <i class="bi bi-archive-fill text-dark"></i>
                     </div>
                     <div>
-                        <div class="stat-value text-secondary fw-bold"><?= $closed_jobs ?></div>
-                        <div class="text-muted small fw-medium">Closed Jobs</div>
+                        <div class="stat-value text-dark fw-bold"><?= $closed_jobs ?></div>
+                        <div class="small fw-medium">Closed Jobs</div>
                     </div>
                 </div>
             </div>
@@ -130,7 +130,7 @@ $closed_jobs = count(array_filter($jobs, fn($j) => $j['status'] === 'closed'));
             <a href="post-job.php" class="btn btn-warning fw-bold text-dark"><i class="bi bi-plus me-1"></i>Post a Job</a>
         </div>
     </div>
-    <div class="card mb-3 shadow-sm">
+    <div class="mb-3 shadow-sm">
         <div class="card-body p-0">
             <?php if (count($jobs) > 0): ?>
                 <div class="table-responsive">
@@ -152,23 +152,23 @@ $closed_jobs = count(array_filter($jobs, fn($j) => $j['status'] === 'closed'));
                                     <td><?= htmlspecialchars($job['work_type']) ?></td>
                                     <td>
                                         <?php if ($job['arrangement'] === 'remote'): ?>
-                                            <span class="badge bg-primary">remote</span>
+                                            <span class="badge bg-info">remote</span>
                                         <?php elseif ($job['arrangement'] === 'hybrid'): ?>
                                             <span class="badge bg-warning">hybrid</span>
                                         <?php else: ?>
-                                            <span class="badge bg-secondary">on-site</span>
+                                            <span class="badge bg-light">on-site</span>
                                         <?php endif; ?>
                                     </td>
                                     <td><?= $job['applicant_count'] ?></td>
                                     <td>
                                         <?php if ($job['status'] === 'active'): ?>
-                                            <span class="badge bg-success">Active</span>
+                                            <span class="badge bg-primary">Active</span>
                                         <?php else: ?>
-                                            <span class="badge bg-secondary">Closed</span>
+                                            <span class="badge bg-dark">Closed</span>
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <a href="edit-job.php?id=<?= $job['job_id'] ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                                        <a href="edit-job.php?id=<?= $job['job_id'] ?>" class="btn btn-sm btn-outline-light"><i class="bi bi-pencil"></i></a>
                                         <a href="applications.php?id=<?= $job['job_id'] ?>" class="btn btn-sm btn-outline-secondary"><i class="bi bi-eye"></i></a>
                                     </td>
                                 </tr>

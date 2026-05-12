@@ -5,15 +5,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>workwithoutlimits</title>
-
+  
   <?php include 'includes/header.php'; ?>
-  <?php include 'includes/navbar.php'; ?>
+  
 </head>
 
 <body>
+  <?php include 'includes/navbar.php'; ?>
   <div class="container py-5 mt-5 text-center">
     <h1 class="display-4 fw-bold">Find work <span class="text-warning">without limits</span></h1>
-    <p class="lead text-secondary mt-3 mb-4">
+    <p class="lead text-dark mt-3 mb-4">
       Connect with employers or find the talent you need —
       fast, free, and straightforward.
     </p>
@@ -57,6 +58,7 @@
   <br>
   <br>
 </body>
+
 <?php include 'includes/footer.php'; ?>
 
 </html>
