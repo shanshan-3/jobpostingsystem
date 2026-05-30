@@ -6,6 +6,7 @@ body {
 .nav-link {
   color: rgba(255, 255, 255, 0.65) !important;
 }
+
 .nav-link.active,
 .nav-link:hover {
   color: #ffc107 !important;
@@ -17,13 +18,16 @@ body {
   color: white;
   border-radius: 8px;
 }
+
 .welcome-banner h2 {
   font-size: 1.75rem;
   font-weight: 800;
 }
+
 .welcome-banner h2 span {
   color: #ffc107;
 }
+
 .welcome-banner p {
   color: rgba(255, 255, 255, 0.75);
 }

@@ -48,12 +48,22 @@ try {
 }
 try {
     $stmt = $pdo->prepare("
-        SELECT u.full_name, j.title 
+        SELECT sp.full_name, j.title
         FROM applications a
-        JOIN users u ON a.user_id = u.user_id
         JOIN job_posting j ON a.job_id = j.job_id
+        LEFT JOIN (
+            SELECT sp1.user_id, sp1.full_name
+            FROM seeker_profiles sp1
+            INNER JOIN (
+                SELECT user_id, MAX(profile_id) AS latest_profile_id
+                FROM seeker_profiles
+                GROUP BY user_id
+            ) latest
+                ON latest.user_id = sp1.user_id
+                AND latest.latest_profile_id = sp1.profile_id
+        ) sp ON a.seeker_id = sp.user_id
         WHERE j.employer_id = ?
-        ORDER BY a.created_at DESC
+        ORDER BY a.applied_at DESC
         LIMIT 4
     ");
     $stmt->execute([$_SESSION['user_id']]);
@@ -124,13 +134,13 @@ $closed_jobs = count(array_filter($jobs, fn($j) => $j['status'] === 'closed'));
         </div>
     </div>
     <!-- JOB POSTING PAGE -->
-    <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="card-header d-flex justify-content-between align-items-center mb-3">
         <h5 class="mb-0">Recent Job Postings</h5>
         <div class="card-jobs">
             <a href="post-job.php" class="btn btn-warning fw-bold text-dark"><i class="bi bi-plus me-1"></i>Post a Job</a>
         </div>
     </div>
-    <div class="mb-3 shadow-sm">
+    <div class="card mb-3 shadow-sm">
         <div class="card-body p-0">
             <?php if (count($jobs) > 0): ?>
                 <div class="table-responsive">
@@ -169,7 +179,6 @@ $closed_jobs = count(array_filter($jobs, fn($j) => $j['status'] === 'closed'));
                                     </td>
                                     <td>
                                         <a href="edit-job.php?id=<?= $job['job_id'] ?>" class="btn btn-sm btn-outline-light"><i class="bi bi-pencil"></i></a>
-                                        <a href="applications.php?id=<?= $job['job_id'] ?>" class="btn btn-sm btn-outline-secondary"><i class="bi bi-eye"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -185,36 +194,44 @@ $closed_jobs = count(array_filter($jobs, fn($j) => $j['status'] === 'closed'));
         </div>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <!-- RECENT APPLICANTS -->
+    <div class="card-header d-flex justify-content-between align-items-center mb-3">
         <h5 class="mb-0">Recent Applicants</h5>
     </div>
-    <div class="row g-3">
-        <?php if (count($recent_applicants) > 0): ?>
-            <?php foreach ($recent_applicants as $applicant): ?>
-                <div class="col-12 col-md-6">
-                    <div class="card applicant-card h-100 shadow-sm">
-                        <div class="card-body d-flex align-items-center gap-3">
-                            <div class="applicant-avatar bg-secondary bg-opacity-10 text-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div>
-                                <div class="fw-bold"><?= htmlspecialchars($applicant['full_name']) ?></div>
-                                <div class="text-muted small">Applied for: <?= htmlspecialchars($applicant['title']) ?></div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body p-0">
+            <?php if (count($recent_applicants) > 0): ?>
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>APPLICANT</th>
+                                <th>APPLIED FOR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($recent_applicants as $applicant): ?>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="bg-secondary bg-opacity-10 text-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; flex-shrink: 0;">
+                                                <i class="bi bi-person-fill"></i>
+                                            </div>
+                                            <span class="fw-medium"><?= htmlspecialchars($applicant['full_name']) ?></span>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle"><?= htmlspecialchars($applicant['title']) ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person text-muted" style="font-size: 3rem;"></i>
-                        <p class="text-muted mt-3 mb-0">No recent applicants found.</p>
-                    </div>
+            <?php else: ?>
+                <div class="text-center p-4">
+                    <i class="bi bi-person text-muted" style="font-size: 3rem;"></i>
+                    <p class="text-muted mt-3 mb-0">No recent applicants found.</p>
                 </div>
-            </div>
-        <?php endif; ?>
-
+            <?php endif; ?>
+        </div>
     </div>
 </div>

@@ -50,14 +50,14 @@ foreach ($jobs as $job):
                         <i class="bi bi-building-fill" style="font-size: 1.25rem;"></i>
                     </div>
                     <?php
-                        $match_score = compute_match($seeker_profile, $job);
-                        if ($match_score >= 70) {
-                            $badge_class = 'bg-success';
-                        } elseif ($match_score >= 40) {
-                            $badge_class = 'bg-warning text-dark';
-                        } else {
-                            $badge_class = 'bg-secondary';
-                        }
+                    $match_score = compute_match($seeker_profile, $job);
+                    if ($match_score >= 70) {
+                        $badge_class = 'bg-success';
+                    } elseif ($match_score >= 40) {
+                        $badge_class = 'bg-warning text-dark';
+                    } else {
+                        $badge_class = 'bg-secondary';
+                    }
                     ?>
                     <span class="badge <?= $badge_class ?> fs-6"><?= $match_score ?>% Match</span>
                 </div>
@@ -70,10 +70,28 @@ foreach ($jobs as $job):
                 </div>
 
                 <div class="d-flex flex-wrap gap-1">
-                    <span class="badge <?= ($job['arrangement'] ?? '') == 'remote' ? 'bg-info' : (($job['arrangement'] ?? '') == 'onsite' ? 'bg-light text-dark border' : 'bg-warning'); ?> fw-semibold">
-                        <i class="bi bi-geo-alt me-1"></i>
-                        <?= htmlspecialchars(($job['arrangement'] ?? '') == 'hybrid' ? 'Hybrid' : ucfirst($job['arrangement'] ?? '')) ?>
-                    </span>
+                    <?php
+                    $arrangement_raw = strtolower(trim($job['arrangement'] ?? ''));
+                    if ($arrangement_raw === 'remote') {
+                        $arrangement_class = 'bg-info text-dark';
+                        $arrangement_label = 'Remote';
+                    } elseif ($arrangement_raw === 'hybrid') {
+                        $arrangement_class = 'bg-warning text-dark';
+                        $arrangement_label = 'Hybrid';
+                    } elseif (in_array($arrangement_raw, ['onsite', 'on-site', 'on site'], true)) {
+                        $arrangement_class = 'bg-light text-dark border';
+                        $arrangement_label = 'On-site';
+                    } else {
+                        $arrangement_class = '';
+                        $arrangement_label = '';
+                    }
+                    ?>
+                    <?php if ($arrangement_label !== ''): ?>
+                        <span class="badge <?= $arrangement_class ?> fw-semibold">
+                            <i class="bi bi-geo-alt me-1"></i>
+                            <?= htmlspecialchars($arrangement_label) ?>
+                        </span>
+                    <?php endif; ?>
 
                     <span class="badge <?= ($job['work_type'] ?? '') == 'fulltime' ? 'bg-primary' : (($job['work_type'] ?? '') == 'parttime' ? 'bg-secondary' : 'bg-dark'); ?> fw-semibold">
                         <i class="bi bi-clock me-1"></i>

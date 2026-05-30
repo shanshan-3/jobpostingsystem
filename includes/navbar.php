@@ -92,7 +92,7 @@ if ($role == 'seeker') {
             <a class="nav-link <?= $current === 'post-job.php' ? 'active' : '' ?>" href="post-job.php">Post a Job</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?= $current === 'jobs.php' ? 'active' : '' ?>" href="jobs.php">My Jobs</a>
+            <a class="nav-link <?= $current === 'applicants.php' ? 'active' : '' ?>" href="applicants.php">Applicants</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto align-items-center gap-2">
