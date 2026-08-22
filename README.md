@@ -1,6 +1,6 @@
 # JobSystem
  
-A PHP and MySQL job portal for local XAMPP setups. Employers can post and manage job listings; jobseekers can browse openings and submit applications.
+A PHP and MySQL job portal. Employers can post and manage job listings, while jobseekers can browse openings and submit applications.
  
 ---
  
