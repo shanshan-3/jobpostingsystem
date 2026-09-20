@@ -21,6 +21,21 @@ SET time_zone = "+00:00";
 -- Database: `jobsystem`
 --
 
+CREATE DATABASE IF NOT EXISTS `jobsystem`
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
+USE `jobsystem`;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS `applications`;
+DROP TABLE IF EXISTS `employer_profiles`;
+DROP TABLE IF EXISTS `job_posting`;
+DROP TABLE IF EXISTS `seeker_profiles`;
+DROP TABLE IF EXISTS `users`;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
 -- --------------------------------------------------------
 
 --
@@ -245,6 +260,8 @@ ALTER TABLE `job_posting`
 ALTER TABLE `seeker_profiles`
   ADD CONSTRAINT `seeker_profiles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 COMMIT;
+
+SET FOREIGN_KEY_CHECKS = 1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
