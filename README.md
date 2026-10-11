@@ -150,11 +150,3 @@ jobpostingsystem/
 ```
 
 The résumé upload handler creates an `uploads/` directory when needed. Apache must have permission to create and write to it.
-
-## Current Limitations
-
-- Some asset URLs assume `/jobsystem/`, while session redirects use root-level paths such as `/auth/login.php`. Hosting under another path requires reviewing these URLs.
-- Some job form values differ from the SQL enum values, particularly part-time and on-site options. These need alignment to avoid database errors.
-- Job matching uses direct string comparisons. Differences in capitalization or accessibility labels can affect scores.
-- The seeker profile save function expects duplicate-key updates, but the supplied schema does not make `seeker_profiles.user_id` unique. Repeated saves can create duplicate profiles.
-- The repository does not currently include an automated test suite.
